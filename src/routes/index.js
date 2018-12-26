@@ -9,7 +9,7 @@ module.exports = app =>{
     
     router.get('/',homeCtrl.index);
     router.get('/images/:imageID',imageCtrl.getImage);
-    router.post('/images',imageCtrl.createImage);
+    router.post('/images',imageCtrl.upload);
     router.post('/images/:imageID/like',imageCtrl.like);
     router.post('/images/:imageID/comments',imageCtrl.postComment);
     router.delete('/images/:imageID',imageCtrl.remove);

@@ -28,7 +28,7 @@ module.exports = app =>{
     app.use(morgan('dev'));
     app.use(multer({
         dest:path.join(__dirname,'../public/upload/temp')
-    }).single('image'));
+    }).single('image')); //Image is a name to input in form.
     app.use(express.urlencoded({extended:false}));
     app.use(express.json());
 
