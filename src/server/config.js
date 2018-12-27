@@ -20,7 +20,7 @@ module.exports = app =>{
         partialsDir:path.join(app.get('views'),'partials'),
         layoutsDir: path.join(app.get('views'),'layouts'),
         extname:'.hbs',
-        helpersForHbs: require('./helpersForHbs')
+        helpers: require('./helpersForHbs')
     }));
     app.set('view engine','.hbs');
     

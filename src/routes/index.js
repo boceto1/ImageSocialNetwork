@@ -8,7 +8,7 @@ const imageCtrl = require('../controllers/imageCtrl');
 module.exports = app =>{
     
     router.get('/',homeCtrl.index);
-    router.get('/images/:imageID',imageCtrl.getImage);
+    router.get('/images/:imageID',imageCtrl.index);
     router.post('/images',imageCtrl.upload);
     router.post('/images/:imageID/like',imageCtrl.like);
     router.post('/images/:imageID/comments',imageCtrl.postComment);
