@@ -10,12 +10,13 @@ const {
     Comment
 } = require('../models');
 
+const sidebar = require('../helpers/sidebar');
 
 const ctrl = {};
 
 ctrl.index = async (req, res) => {
 
-    const viewModel = {
+    let viewModel = {
         image: {},
         comments: {}
     };
@@ -34,6 +35,7 @@ ctrl.index = async (req, res) => {
         });
         viewModel.image = image;
         viewModel.comments = comments;
+        viewModel = await sidebar(viewModel);
         res.render('image', viewModel);
     } else {
         res.redirect('/');
