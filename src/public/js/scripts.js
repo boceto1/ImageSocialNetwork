@@ -8,3 +8,27 @@ $('#btnLike').click(function(e){
       });
 
 });
+
+$('#postComment').hide();
+$('#btn-toggle-comment').click(e =>{
+    $('#postComment').slideToggle();
+})
+
+$('#btnDelete').click(function(e){
+  e.preventDefault();
+  let $this = $(this);
+  const response= confirm('Are you sure you want to delete this image?')
+
+  if(response){
+    let imageId = $this.data('id');
+    
+    $.ajax({
+      url:`/images/${imageId}`,
+      type:'DELETE'
+    })
+    .done(result=>{
+      console.log(result);
+      $(location).attr('href', '/')
+    })
+  }
+})

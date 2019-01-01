@@ -119,8 +119,16 @@ ctrl.postComment = async (req, res) => {
     }
 }
 
-ctrl.remove = (req, res) => {
+ctrl.remove = async (req, res) => {
+    
+   const image = await Image.findOne({filename:{$regex:req.params.imageID}})
 
+   if(image){
+       await fs.unlink(path.resolve(`./src/public/upload/${image.filename}`));
+       await Comment.deleteOne({imageID:image._id});
+       await image.remove();
+       res.json({ok:true,message:'The photo was deleted.'})
+   }
 }
 
 module.exports = ctrl;
