@@ -22,30 +22,13 @@
 
 <body>
 
-    <div class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a href="/" class="navbar-brand">
-                <img src="/public/images/imgshare-logo.png" alt="imgShare">
+    {{> navbar}}
 
-            </a>
-        </div>
-    </div>
+     {{!-- Body --}}
+    {{{body}}}
 
-    <div class="container p-4">
-
-        <div class="row">
-            <div class="col-12 col-md-8">
-                {{{body}}}
-            </div>
-           
-            <div class="col 12 col-md-4">
-                {{> stats}}
-                {{> popular}}
-                {{> comments}}
-            </div>
-        </div>
-    </div>
-
+    {{!-- Footer --}}
+    {{> footer}}
 
     <!--Scripts -->
     <!--Library Scripts -->

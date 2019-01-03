@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const {database} = require('./keys');
-
-mongoose.connect(database.URI,{
+mongoose.connect(process.env.URLDB,{
     useNewUrlParser:true
 })
     .then(db => console.log('DB is connected'))

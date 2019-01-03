@@ -1,10 +1,10 @@
-const {Comment,Image} =require('../models');
+const {Comment} =require('../models');
 
 module.exports = {
 
     async newest (){
         const comments = await Comment.find()
-            .populate('imageID')
+            .populate('image')
             .limit(5)
             .sort({timestamp:-1});
         

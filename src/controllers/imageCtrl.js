@@ -31,7 +31,7 @@ ctrl.index = async (req, res) => {
         image.views = image.views + 1;
         await image.save();
         const comments = await Comment.find({
-            imageID: image._id
+            image: image._id
         });
         viewModel.image = image;
         viewModel.comments = comments;
@@ -113,7 +113,7 @@ ctrl.postComment = async (req, res) => {
     if (image) {
         const newComment = new Comment(req.body);
         newComment.gravatar = md5(newComment.email);
-        newComment.imageID = image._id;
+        newComment.image = image._id;
         await newComment.save();
         return res.redirect(`/images/${image.uniqueId}`)
     } else {
@@ -127,7 +127,7 @@ ctrl.remove = async (req, res) => {
 
    if(image){
        await fs.unlink(path.resolve(`./src/public/upload/${image.filename}`));
-       await Comment.deleteOne({imageID:image._id});
+       await Comment.deleteOne({image:image._id});
        await image.remove();
        res.json({ok:true,message:'The photo was deleted.'})
    }

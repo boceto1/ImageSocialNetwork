@@ -1,48 +1,23 @@
-const path = require('path');
-const exphbs = require('express-handlebars');
-const morgan = require('morgan');
-const multer = require('multer');
-const express = require('express');
-const errorHandler = require('errorhandler');
-
-const routes = require('../routes/index');
-
-const publicPath=path.join(__dirname,'../public');
-module.exports = app =>{
-
-    //Settings
-    app.set('port',process.env.PORT||3000);
+/**
+ * PUERTO
+ */
+process.env.PORT = process.env.PORT || 3000;
 
 
-    app.set('views',path.join(__dirname,'../views'));
-    app.engine('.hbs',exphbs({
-        defaultLayout:'main',
-        partialsDir:path.join(app.get('views'),'partials'),
-        layoutsDir: path.join(app.get('views'),'layouts'),
-        extname:'.hbs',
-        helpers: require('./helpersForHbs')
-    }));
-    app.set('view engine','.hbs');
-    
-    //middlewares
-    app.use(morgan('dev'));
-    app.use(multer({
-        dest:path.join(__dirname,'../public/upload/temp')
-    }).single('image')); //Image is a name to input in form.
-    app.use(express.urlencoded({extended:false}));
-    app.use(express.json());
+/**
+ * ENTORNO
+ */
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
-    //routes
-    routes(app);
+ /**
+  * CONEXIÓN CON LA BASE DE DATOS.
+  */
 
+ let urlDB;
 
-    //static files
-    app.use('/public', express.static(publicPath));
+ process.env.NODE_ENV==='dev'? 
+     urlDB = 'mongodb://localhost:27017/imageSocialNetwork':
+     urlDB = process.env.MONGO_URI;
+ 
+ process.env.URLDB = urlDB;
 
-    //errorhandlers
-    if('develepment' === app.get('env')){
-        app.use(errorHandler);
-    }
-
-    return app;
-}
